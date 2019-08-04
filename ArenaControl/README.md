@@ -27,6 +27,11 @@ side of the switch is nearest the floor.
 That leaves one ground connection for all 10x switches, followed by
 20x additional wires as shown in the table above.
 
+I used the following Arduino screw shield for making the connections 
+to the Arduino and the buttons and LEDs:
+
+https://www.amazon.com/gp/product/B01N2N7LZA/ref=ppx_yo_dt_b_asin_title_o09_s00?ie=UTF8&psc=1
+
 This should be clear enough without a schematic, but if there is any
 question, please let me know.
 
