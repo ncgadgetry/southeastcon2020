@@ -1,5 +1,5 @@
 /**
- * SoutheastCon 2029 Arena control - ArenaControl.cpp
+ * SoutheastCon 2020 Arena control - ArenaControl.cpp
  *
  * Pin assignments, as well as a challenge to the code reviwers
  *    to find bugs, and the list of those who helped, are listed

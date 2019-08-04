@@ -16,6 +16,9 @@
  *
  * COLLABORATORS / HONORS (for helping identify new issues in the software):
  *    YOUR NAME COULD BE HERE FOR EVERYONE TO SEE!
+ *
+ * Luc Lagarde USM - found a typo in my header comments (2029 instead of 2020)
+ *
  */
 
 // Length of match runtime 3 minutes in milliseconds
