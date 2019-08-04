@@ -35,7 +35,7 @@ but then run out when you hit 3.141. This table gives you that detail
 for up to 25x of each color:
 
 | #bricks | max seq | height |
-| ------- | :----- | :----- |
+|:-------:|:-----:|:-----:|
 | 1 | 3 | 2.1" |
 | 2 | 10 | 7.2" |
 | 3 | 17 | 12.2" |
@@ -69,7 +69,7 @@ blocks of each color do you need? Which color runs out the fastest at
 any specific height, etc?
 
 | count | BLACK | BROWN | RED | ORANGE |YELLOW | GREEN | BLUE | VIOLET | GRAY |WHITE |
-| :------ | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|:------:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
 | 1 | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
 | 2 | 0 | 1 | 0 | 1 | 1 | 0 | 0 | 0 | 0 | 0 |
