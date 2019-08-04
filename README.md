@@ -10,8 +10,8 @@ This github contains the arena control software for the IEEE Southeastcon 2020 h
 
 * ArenaControl - the Arduino source code for the control electronics
 
-   The arena source code is still a work in progress and is not yet complete.
-   Please read the comments in the main ArenaControl.ino file for an offer
+   Release of the Arduino code and hardware for the arena electronics.
+   Please read the comments in the main ArenaControl.h file for an offer
    of fame (and 'fortune') for helping locate and resolve issues in the code.
 
 * 3D_Files
