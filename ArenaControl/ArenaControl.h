@@ -22,6 +22,9 @@
  */
 
 // Length of match runtime 3 minutes in milliseconds
+// NOTE: temporarily setting this to only 15 seconds to allow faster iterations
+//    of testing the code. This is NOT a bug, but should be changed in your code
+//    to 3L*60L*1000 for robot testing.S
 #define MATCH_RUNTIME   (15000L)  // should be ((3L*60L)*1000)
 
 #define DEBOUNCE_DELAY   25       // debounce time; increase if output flickers

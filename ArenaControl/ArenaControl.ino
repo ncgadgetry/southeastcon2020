@@ -122,9 +122,20 @@ void startCompetition() {
 
    boolean newPress;
    int numPressed;
+   int led = 0;
+   int direction = 1;
    
    // The judge starts the competition by pressing any one button
+   // For fun, do a bouncing LED back and forth until the button press
    do {
+      setLED(led, false);
+      led += direction;
+      if ((led == 0) or (led == 9)) {
+         direction = -direction;
+      }
+      setLED(led, true);
+      delay(100);
+
       debounceButtons(&newPress, &numPressed);      
    } while (!newPress);
 
