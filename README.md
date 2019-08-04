@@ -2,6 +2,8 @@
 
 This github contains the rules, arena control software and hardware, and other related files for the IEEE Southeastcon 2020 hardware competition to be held in Raleigh, NC on March 14, 2020.
 
+![Pi Day](http://images.schoolinsites.com/SiSFiles/SCHOOLS/AL/SaralandCitySchools/AdamsMiddle/Uploads/Other/%7B20B4C47C-0AC4-4412-AB04-691C2EF558A4%7D_piday1.gif)
+
 # Contents:
 
 * Rules:
@@ -26,6 +28,10 @@ at the official SoutheastCon page here:
    https://attend.ieee.org/southeastcon-2020/
 
 Have fun, and I hope to see you in Raleigh in March, 2020!
+
+---------
+
+![Arena view](https://github.com/ncgadgetry/southeastcon2020/blob/master/3D_Files/arena_right.png)
 
 ---------
 
