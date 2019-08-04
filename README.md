@@ -19,3 +19,12 @@ This github contains the arena control software for the IEEE Southeastcon 2020 h
    Contains the SCAD source code for generating the 3D images of the 
    arena in the rules, as well as the generated photos.
 
+You can find out more about SoutheastCon 2020, including the other
+competitions (software, hackathan, website, T-shirt design, ethics)
+at the official SoutheastCon page here:
+
+   https://attend.ieee.org/southeastcon-2020/
+
+Have fun, and I hope to see you in Raleigh in March, 2020!
+
+
