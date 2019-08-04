@@ -69,7 +69,7 @@ blocks of each color do you need? Which color runs out the fastest at
 any specific height, etc?
 
 | count | BLACK | BROWN | RED | ORANGE |YELLOW | GREEN | BLUE | VIOLET | GRAY |WHITE |
-| ------ | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| :------ | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
 | 1 | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
 | 2 | 0 | 1 | 0 | 1 | 1 | 0 | 0 | 0 | 0 | 0 |
