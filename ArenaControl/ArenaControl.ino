@@ -116,38 +116,54 @@ void debounceButtons(boolean *newPress, int *numPressed) {
 
 /**
  * Do whatever set up is required to wait for the competition to start,
- *    and to display the first digit
+ *    and to display the first digit (add a little LED bling of bouncing
+ *    LED lights while waiting for the contest to start
  */
 void startCompetition() {
 
-   boolean newPress;
-   int numPressed;
-   int led = 0;
-   int direction = 1;
+   boolean readyToStart = false; // true when ready to start the contest
+   uint32_t ledDelay = 500;      // for a 2hz rate
+   uint32_t start = millis();    // start of delay for each led dance
+   int led = 1;                  // where to start the dance
+   int direction = -1;           // initial direction of the light dance
+   int button;                   // loop for checking for button press
    
    // The judge starts the competition by pressing any one button
    // For fun, do a bouncing LED back and forth until the button press
-   do {
-      setLED(led, false);
-      led += direction;
-      if ((led == 0) or (led == 9)) {
-         direction = -direction;
+   while (!readyToStart) {
+
+      // Is it time to move to the next LED?
+      if ((millis() - start) > ledDelay) {
+ 
+         // If so, turn the previous one off, advance, turn next on
+         start = millis();
+         setLED(led, false);
+         led += direction;
+         setLED(led, true);
+ 
+         // Is it time to reverse direction?
+         if ((led == 0) or (led == 9)) {
+            direction = -direction;
+         }
       }
-      setLED(led, true);
-      delay(100);
-
-      debounceButtons(&newPress, &numPressed);      
-   } while (!newPress);
-
-   // But delay here until the judge releases the button
-   do {
-      debounceButtons(&newPress, &numPressed);      
-   } while (numPressed == 0);
+ 
+      // Quickly scan to see if any button has been depressed - we are NOT
+      //    debouncing this as all we care is first glitch to start.
+      for (button=0; button < NUM_BUTTONS; button++) {
+         if (buttonPressed(button)) {
+            readyToStart = true;
+            break;
+         }
+      }
+   }
 
    // Quick flash to indicate the competition has begun
    setAllLEDs(true);
    delay(FLASH_INTERVAL);
    setAllLEDs(false);
+
+   // Pause a second pause to make sure judge lets go of the button... ;-)
+   delay(500);
    
    // Now light up the first digit ('3') to start the competition
    setLED(3, true);
