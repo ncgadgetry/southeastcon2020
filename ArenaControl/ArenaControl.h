@@ -13,6 +13,10 @@
  * Trivial question - the first person (or team) who can answer this will also
  *    get their name/names listed in the honors section below.
  *    "What digit sequence occurs at position 18,900,827 and why is it important?"
+ *    (the correct answer was submitted by Ben Wiegand [BigBenMOG] of the Bob
+ *    Jones University team. The answer is that the sequence 0-3-1-4-2-0-2-0 is
+ *    found starting at that position, which corresponds to the date of the
+ *    Pi Day challenge during SoutheastCon 2020 (03/14/2020).
  *
  * COLLABORATORS / HONORS (for helping identify new issues in the software):
  *    YOUR NAME COULD BE HERE FOR EVERYONE TO SEE!
@@ -25,7 +29,8 @@
 // NOTE: temporarily setting this to only 15 seconds to allow faster iterations
 //    of testing the code. This is NOT a bug, but should be changed in your code
 //    to 3L*60L*1000 for robot testing.S
-#define MATCH_RUNTIME   (15000L)  // should be ((3L*60L)*1000)
+
+#define MATCH_RUNTIME   (180L*1000L)  // 3 minutes (in milliseconds)
 
 #define DEBOUNCE_DELAY   25       // debounce time; increase if output flickers
 #define FLASH_INTERVAL   50       // how long to flash LEDs on wrong push
