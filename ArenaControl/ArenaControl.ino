@@ -9,11 +9,16 @@
  
 #include "Arduino.h"
 #include "ArenaControl.h"
-#include "pi2000.h"
+#include "pi10000.h"
 
 
 /**
  * readSwitch - returns true if switch is depressed, else false 
+ *   
+ * The switch input is active-low, as the other side of the switch
+ *    is tied to ground. This allows connecting all 10x of the 
+ *    switches to all 10x of the LED returns together with one
+ *    ground wire (see photos in hw-uploads channel)
  */
 boolean buttonPressed(int id) {
    return !digitalRead(BUTTON_PIN(id));   
@@ -185,9 +190,9 @@ void endCompetition() {
          
    // Print out the stats on presses
    Serial.println(F("Time's up\n"));
-   Serial.print(F("Num sequenced currently:"));
+   Serial.print(F("Num sequenced correctly:"));
    Serial.println(numSequenced);
-   Serial.print(F("Extra not sequenced currently:"));
+   Serial.print(F("Extra not sequenced correctly:"));
    Serial.println(extraNotSequenced);
    
    // Calculate and print out the score - 10 points for each one
@@ -274,6 +279,7 @@ void loop() {
         if (buttonState[digit].buttonState == false) {
            inSequence = false;
            numSequenced = piDigitPosn;
+           extraNotSequenced++;
            flashAllLEDs();
 
         // Else new press, correct so turn off digit, increment count of correct

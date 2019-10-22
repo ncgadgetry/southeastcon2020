@@ -22,6 +22,8 @@
  *    YOUR NAME COULD BE HERE FOR EVERYONE TO SEE!
  *
  * Luc Lagarde USM - found a typo in my header comments (2029 instead of 2020)
+ * Ammar Ratnani - issue with first incorrect digit not counted (also reported 
+ *       by dskaggs (Dylan) of WKU`
  *
  */
 
@@ -42,6 +44,10 @@
 //      ID       0  1  2  3  4  5  6  7  8  9
 //      LED     26 28 30 32 34 36 38 40 42 44 
 //      BUTTON  27 29 31 33 35 37 39 41 43 45
+//
+// The other side of the LED and button are both tied to ground
+//    This allows a single bus wire to tie 2x wires of each of
+//    of the 10x buttons together to one connection - ground.
 #define NUM_BUTTONS   10    // 10 digits - zero through nine
 #define PIN_OFFSET    26    // Mega2560 first pin used
 #define LED_PIN(n)    (PIN_OFFSET + (2*n))  // LEDs on the even pins
