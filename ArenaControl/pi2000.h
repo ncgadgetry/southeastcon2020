@@ -1,5 +1,10 @@
 /**********************************************
  * First 2,000 digits of pi
+ *
+ * Note that this file will be replaced with a
+ * much longer sequence of pi later to match
+ * the new rule change of unlimited number of
+ * button presses - coming soon! [Oct 21, 2019]
  **********************************************/
 
 char pi[] = "\
