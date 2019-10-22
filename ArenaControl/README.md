@@ -21,7 +21,7 @@ connected to ground and the other side to the pin listed above.
 Note it is possible to run a single ground wire across all 10x buttons
 tying the 20x points of the LEDs and switches together. To make it 
 easier, I used a 22 gauge uninsulated wire and just stiched it through
-all the pins (orienting the buttons so that the LED cathonde and one
+all the pins (orienting the buttons so that the LED cathode and one
 side of the switch is nearest the floor.
 
 That leaves one ground connection for all 10x switches, followed by
