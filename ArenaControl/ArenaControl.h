@@ -24,6 +24,8 @@
  * Luc Lagarde USM - found a typo in my header comments (2029 instead of 2020)
  * Ammar Ratnani - issue with first incorrect digit not counted (also reported 
  *       by dskaggs (Dylan) of WKU`
+ * Luc Lagarde USM - suggested adding PROGMEM to pi (needed once #digits 
+ *       was bumped to 10k)
  *
  */
 
