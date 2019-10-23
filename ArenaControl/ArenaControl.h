@@ -25,7 +25,7 @@
  * Ammar Ratnani - issue with first incorrect digit not counted (also reported 
  *       by dskaggs (Dylan) of WKU`
  * Luc Lagarde USM - suggested adding PROGMEM to pi (needed once #digits 
- *       was bumped to 10k)
+ *       was bumped to 10k) - issue reported by mdixon2
  *
  */
 
