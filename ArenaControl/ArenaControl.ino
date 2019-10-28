@@ -47,6 +47,14 @@ void setAllLEDs(boolean is_on) {
 
 
 /**
+ * piDigit - returns the 0..9 value of the dig at posn
+ */
+int piDigit(int posn) {
+   return pgm_read_byte_near(pi+piDigitPosn) - '0';
+}
+
+
+/**
  * flashAllLEDs - turns all the LEDs on, and sets a timeout of when to
  *    turn them all off. If called again before the timeout is up, it 
  *    just resets the timeout (so a fast robot continuing to press the
@@ -241,7 +249,7 @@ void loop() {
 
    boolean newPress;
    int numPressed;
-   
+
    // If the match is over, stop and report the score now and halt here
    if ((millis()-startTimestamp) >= MATCH_RUNTIME) {
       endCompetition();  // Will not return from this
@@ -273,7 +281,7 @@ void loop() {
      else if (newPress) {
         
         // Get the 0..9 value of the current sequence digit
-        int digit = pi[piDigitPosn] - '0';
+        int digit = piDigit(piDigitPosn);
 
         // If the wrong button was pressed, we are no longer sequencing
         if (buttonState[digit].buttonState == false) {
@@ -287,7 +295,7 @@ void loop() {
         } else {
            setLED(digit, false);
            piDigitPosn++;
-           digit = pi[piDigitPosn] - '0';
+           digit = piDigit(piDigitPosn);
            setLED(digit, true);
         }
      }
