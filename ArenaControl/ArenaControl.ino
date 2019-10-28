@@ -224,7 +224,8 @@ void setup() {
    int i;
    
    Serial.begin(9600);
-
+   Serial.println(VERSION);
+   
    // Setup our buttons as input and our leds as output, and turn the LEDs off
    for (i=0; i < NUM_BUTTONS; i++) {
       pinMode(LED_PIN(i), OUTPUT);

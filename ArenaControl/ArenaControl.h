@@ -26,13 +26,20 @@
  *       by dskaggs (Dylan) of WKU`
  * Luc Lagarde USM - suggested adding PROGMEM to pi (needed once #digits 
  *       was bumped to 10k) - issue reported by mdixon2
+ * dskaggs (Dylan of WKU - discovered I dropped PROGMEM on my lastest update
  *
+ * VERSIONS:
+ *    1.0 - initial release
+ *    1.+ - bug fixes, bump digits to 10k, more bug fixes
+ *    2.0 - add PROGMEM back, add VERSION # to track what is loaded on the board
  */
 
 // Length of match runtime 3 minutes in milliseconds
 // NOTE: temporarily setting this to only 15 seconds to allow faster iterations
 //    of testing the code. This is NOT a bug, but should be changed in your code
 //    to 3L*60L*1000 for robot testing.S
+
+#define VERSION "Version 2.0, released Oct 27, 2019"
 
 #define MATCH_RUNTIME   (180L*1000L)  // 3 minutes (in milliseconds)
 
