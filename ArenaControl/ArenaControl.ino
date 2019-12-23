@@ -206,7 +206,7 @@ void endCompetition() {
    // Calculate and print out the score - 10 points for each one
    //   sequenced correctly, plus 1 point (max of 100) for those not
    //   sequenced correctly
-   int score = (numSequenced * 10) + min(extraNotSequenced, 100);
+   unsigned int score = (numSequenced * 10) + min(extraNotSequenced, 100);
    Serial.print(F("\nFinal score: "));
    Serial.println(score);
    
