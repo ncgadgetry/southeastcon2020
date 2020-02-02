@@ -27,11 +27,14 @@
  * Luc Lagarde USM - suggested adding PROGMEM to pi (needed once #digits 
  *       was bumped to 10k) - issue reported by mdixon2
  * dskaggs (Dylan of WKU - discovered I dropped PROGMEM on my lastest update
+ * John Barnes UK - suggested using a larger value than int for the score, 
+ *       and found a bug where I used a global name instead of the local param
  *
  * VERSIONS:
  *    1.0 - initial release
  *    1.+ - bug fixes, bump digits to 10k, more bug fixes
  *    2.0 - add PROGMEM back, add VERSION # to track what is loaded on the board
+ *    2.1 - change score to long, fix piDgit param
  */
 
 // Length of match runtime 3 minutes in milliseconds
@@ -39,7 +42,8 @@
 //    of testing the code. This is NOT a bug, but should be changed in your code
 //    to 3L*60L*1000 for robot testing.S
 
-#define VERSION "Version 2.0, released Oct 27, 2019"
+#define HELLO   "SoutheastCon 2020 Hardware Arena Control"
+#define VERSION "Version 2.1, released Feb 2, 2020"
 
 #define MATCH_RUNTIME   (180L*1000L)  // 3 minutes (in milliseconds)
 

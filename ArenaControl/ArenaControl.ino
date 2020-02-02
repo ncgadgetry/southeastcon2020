@@ -11,6 +11,25 @@
 #include "ArenaControl.h"
 #include "pi10000.h"
 
+extern unsigned int __bss_end;
+extern unsigned int __heap_start;
+extern void *__brkval;
+
+/**
+ * getFreeSram - returns the number of free bytes in SRAM
+ */
+uint16_t getFreeSram() {
+  uint8_t newVariable;
+
+  // heap is empty, use bss as start memory address
+  if ((uint16_t)__brkval == 0)
+    return (((uint16_t)&newVariable) - ((uint16_t)&__bss_end));
+
+  // use heap end as the start of the memory address
+  else
+    return (((uint16_t)&newVariable) - ((uint16_t)__brkval));
+};
+
 
 /**
  * readSwitch - returns true if switch is depressed, else false 
@@ -26,7 +45,7 @@ boolean buttonPressed(int id) {
 
 
 /**
- * setLED - turns on the LED is is_on is true, else turns it off
+ * setLED - turns on the LED if is_on is true, else turns it off
  */
 void setLED(int id, boolean is_on) {
    digitalWrite(LED_PIN(id), (is_on ? HIGH : LOW));
@@ -50,7 +69,7 @@ void setAllLEDs(boolean is_on) {
  * piDigit - returns the 0..9 value of the dig at posn
  */
 int piDigit(int posn) {
-   return pgm_read_byte_near(pi+piDigitPosn) - '0';
+   return pgm_read_byte_near(pi + posn) - '0';
 }
 
 
@@ -87,17 +106,17 @@ void debounceButtons(boolean *newPress, int *numPressed) {
    // Scan each of the buttons   
    for (digit=0; digit < NUM_BUTTONS; digit++) {
       
-     // read the state of the switch into a local variable:
+     // Read the state of the switch into a local variable:
      int reading = buttonPressed(digit);
    
-     // check to see if you just pressed the button
+     // Check to see if you just pressed the button
      // (i.e. the input went from false to true), and you've waited long enough
      // since the last press to ignore any noise:   
      
      // If the switch changed, due to noise or pressing:
      if (reading != buttonState[digit].lastButtonState) {
         
-       // reset the debouncing timer
+       // Reset the debouncing timer
        buttonState[digit].lastDebounceTime = millis();
      }
    
@@ -206,7 +225,7 @@ void endCompetition() {
    // Calculate and print out the score - 10 points for each one
    //   sequenced correctly, plus 1 point (max of 100) for those not
    //   sequenced correctly
-   int score = (numSequenced * 10) + min(extraNotSequenced, 100);
+   long score = (numSequenced * 10L) + min(extraNotSequenced, 100);
    Serial.print(F("\nFinal score: "));
    Serial.println(score);
    
@@ -224,7 +243,10 @@ void setup() {
    int i;
    
    Serial.begin(9600);
+   Serial.println(HELLO);
    Serial.println(VERSION);
+   Serial.print("FreeSram = ");
+   Serial.println(getFreeSram());\
    
    // Setup our buttons as input and our leds as output, and turn the LEDs off
    for (i=0; i < NUM_BUTTONS; i++) {
@@ -312,5 +334,4 @@ void loop() {
       }
    }
 }
-
 
