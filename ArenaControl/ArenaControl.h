@@ -29,12 +29,14 @@
  * dskaggs (Dylan of WKU - discovered I dropped PROGMEM on my lastest update
  * John Barnes UK - suggested using a larger value than int for the score, 
  *       and found a bug where I used a global name instead of the local param
- *
+ * Paul MacDougal - code review/analysis/test jig, resulting in several bug fixes
+ * 
  * VERSIONS:
  *    1.0 - initial release
  *    1.+ - bug fixes, bump digits to 10k, more bug fixes
  *    2.0 - add PROGMEM back, add VERSION # to track what is loaded on the board
  *    2.1 - change score to long, fix piDgit param
+ *    2.2 - Paul MacDougal's code suggestions - thanx!
  */
 
 // Length of match runtime 3 minutes in milliseconds
@@ -43,7 +45,7 @@
 //    to 3L*60L*1000 for robot testing.S
 
 #define HELLO   "SoutheastCon 2020 Hardware Arena Control"
-#define VERSION "Version 2.1, released Feb 2, 2020"
+#define VERSION "Version 2.2, released Feb 3, 2020"
 
 #define MATCH_RUNTIME   (180L*1000L)  // 3 minutes (in milliseconds)
 

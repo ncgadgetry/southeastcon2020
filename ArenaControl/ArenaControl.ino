@@ -12,7 +12,7 @@
 #include "pi10000.h"
 
 /**
- * readSwitch - returns true if switch is depressed, else false 
+ * buttonPressed - returns true if switch is depressed, else false 
  *   
  * The switch input is active-low, as the other side of the switch
  *    is tied to ground. This allows connecting all 10x of the 
