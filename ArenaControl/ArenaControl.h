@@ -39,11 +39,6 @@
  *    2.2 - Paul MacDougal's code suggestions - thanx!
  */
 
-// Length of match runtime 3 minutes in milliseconds
-// NOTE: temporarily setting this to only 15 seconds to allow faster iterations
-//    of testing the code. This is NOT a bug, but should be changed in your code
-//    to 3L*60L*1000 for robot testing.S
-
 #define HELLO   "SoutheastCon 2020 Hardware Arena Control"
 #define VERSION "Version 2.2, released Feb 3, 2020"
 
