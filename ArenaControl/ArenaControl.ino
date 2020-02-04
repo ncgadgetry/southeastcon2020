@@ -11,26 +11,6 @@
 #include "ArenaControl.h"
 #include "pi10000.h"
 
-extern unsigned int __bss_end;
-extern unsigned int __heap_start;
-extern void *__brkval;
-
-/**
- * getFreeSram - returns the number of free bytes in SRAM
- */
-uint16_t getFreeSram() {
-  uint8_t newVariable;
-
-  // heap is empty, use bss as start memory address
-  if ((uint16_t)__brkval == 0)
-    return (((uint16_t)&newVariable) - ((uint16_t)&__bss_end));
-
-  // use heap end as the start of the memory address
-  else
-    return (((uint16_t)&newVariable) - ((uint16_t)__brkval));
-};
-
-
 /**
  * readSwitch - returns true if switch is depressed, else false 
  *   
@@ -99,6 +79,7 @@ void flashAllLEDs() {
 void debounceButtons(boolean *newPress, int *numPressed) {
 
    int  digit;
+   unsigned int now = millis();
    
    *newPress = false;
    *numPressed = 0;
@@ -117,12 +98,12 @@ void debounceButtons(boolean *newPress, int *numPressed) {
      if (reading != buttonState[digit].lastButtonState) {
         
        // Reset the debouncing timer
-       buttonState[digit].lastDebounceTime = millis();
+       buttonState[digit].lastDebounceTime = now;
      }
    
      // whatever the reading is at, it's been there for longer than the debounce
      // delay, so take it as the actual current state:
-     if ((millis() - buttonState[digit].lastDebounceTime) > DEBOUNCE_DELAY) {
+     if ((now - buttonState[digit].lastDebounceTime) >= DEBOUNCE_DELAY) {
   
        // if the button state has changed:
        if (reading != buttonState[digit].buttonState) {
@@ -196,9 +177,6 @@ void startCompetition() {
 
    // Pause a second pause to make sure judge lets go of the button... ;-)
    delay(500);
-   
-   // Now light up the first digit ('3') to start the competition
-   setLED(3, true);
 }
 
 
@@ -245,8 +223,6 @@ void setup() {
    Serial.begin(9600);
    Serial.println(HELLO);
    Serial.println(VERSION);
-   Serial.print("FreeSram = ");
-   Serial.println(getFreeSram());\
    
    // Setup our buttons as input and our leds as output, and turn the LEDs off
    for (i=0; i < NUM_BUTTONS; i++) {
@@ -254,10 +230,10 @@ void setup() {
       pinMode(BUTTON_PIN(i), INPUT_PULLUP);
       setLED(i, false);
    }
-   
+
    // Wait for the competition to start
    startCompetition();
-   
+
    // Save off the timestamp of when we started the competition
    startTimestamp = millis();
 }
@@ -286,8 +262,9 @@ void loop() {
    // Debounce all the buttons...   
    debounceButtons(&newPress, &numPressed);
    
-   // If no buttons are pressed, then nothing else for us to do
+   // If all buttons are released, then light up the next button in the sequence
    if (numPressed == 0) {
+      setLED(piDigit(piDigitPosn), true);
    }
 
    // Else we handle the case of currently in a sequence   
@@ -318,8 +295,6 @@ void loop() {
         } else {
            setLED(digit, false);
            piDigitPosn++;
-           digit = piDigit(piDigitPosn);
-           setLED(digit, true);
         }
      }
    }
