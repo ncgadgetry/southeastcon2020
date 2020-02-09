@@ -29,7 +29,8 @@
  * dskaggs (Dylan of WKU - discovered I dropped PROGMEM on my lastest update
  * John Barnes UK - suggested using a larger value than int for the score, 
  *       and found a bug where I used a global name instead of the local param
- * Paul MacDougal - code review/analysis/test jig, resulting in several bug fixes
+ * Paul MacDougal - code review/analysis/test jig, resulting in several bug
+ *                  fixes, and suggested dropping DEBOUNCE_DELAY to 24ms
  * 
  * VERSIONS:
  *    1.0 - initial release
@@ -44,7 +45,10 @@
 
 #define MATCH_RUNTIME   (180L*1000L)  // 3 minutes (in milliseconds)
 
-#define DEBOUNCE_DELAY   25       // debounce time; increase if output flickers
+// DEBOUNCE_DELAY is 1ms shorter than 25ms to include the processing
+//     time for the debounce (less than 1ms, but this makes sure that
+//     25ms down and 25ms up works!
+#define DEBOUNCE_DELAY   24       // debounce time; increase if output flickers
 #define FLASH_INTERVAL   50       // how long to flash LEDs on wrong push
 
 // PIN_OFFSET is the first pin used for this project. Every even pin
