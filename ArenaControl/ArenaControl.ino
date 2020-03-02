@@ -215,7 +215,9 @@ bool matchStart() {
    int button;
    for (button=0; button < NUM_BUTTONS; button++) {
        if (buttonPressed(button)) {
+          delay(50);
           while (buttonPressed(button));
+          delay(50);
           started = true;
        }
     }
