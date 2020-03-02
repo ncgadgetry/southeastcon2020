@@ -42,7 +42,7 @@
  */
 
 #define HELLO   "SoutheastCon 2020 Hardware Arena Control"
-#define VERSION "Version 2.2, released Feb 3, 2020"
+#define VERSION "Version 3.0, released March 1, 2020"
 
 #define MATCH_RUNTIME   (180L*1000L)  // 3 minutes (in milliseconds)
 
