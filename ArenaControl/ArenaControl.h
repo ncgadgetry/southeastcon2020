@@ -38,6 +38,7 @@
  *    2.0 - add PROGMEM back, add VERSION # to track what is loaded on the board
  *    2.1 - change score to long, fix piDgit param
  *    2.2 - Paul MacDougal's code suggestions - thanx!
+ *    3.0 - add support for LCD controller, switch to uS timing
  */
 
 #define HELLO   "SoutheastCon 2020 Hardware Arena Control"
@@ -48,8 +49,8 @@
 // DEBOUNCE_DELAY is 1ms shorter than 25ms to include the processing
 //     time for the debounce (less than 1ms, but this makes sure that
 //     25ms down and 25ms up works!
-#define DEBOUNCE_DELAY   24       // debounce time; increase if output flickers
-#define FLASH_INTERVAL   50       // how long to flash LEDs on wrong push
+#define DEBOUNCE_DELAY   (24500ul) // debounce time in usec
+#define FLASH_INTERVAL   25        // ms time to flash LEDs on wrong push
 
 // PIN_OFFSET is the first pin used for this project. Every even pin
 //    is an button, followed by the matching LED on the odd pin
@@ -70,7 +71,7 @@
 struct {
    int buttonState;                 // the current reading from the input pin
    int lastButtonState;             // the previous reading from the input pin
-   unsigned long lastDebounceTime;  // the last time the output pin was toggled
+   uint32_t lastDebounceTime;       // the last time the output pin was toggled
 } buttonState[NUM_BUTTONS];
 
 
