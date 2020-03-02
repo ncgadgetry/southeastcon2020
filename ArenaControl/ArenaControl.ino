@@ -368,6 +368,11 @@ void setup() {
       pinMode(LED_PIN(i), OUTPUT);
       pinMode(BUTTON_PIN(i), INPUT_PULLUP);
       setLED(i, false);
+      if (buttonPressed(i)) {
+         Serial.print("Warning, button #");
+         Serial.print(i);
+         Serial.println(" is already pressed");
+      }
    }
 
    // Check if the optional LCD/button controller is installed
