@@ -168,7 +168,7 @@ module drawBinWalls()
 module drawPushbuttons()
 {
     for(button=[0:9]) {
-        translate([by2, 
+        translate([by2+fudge, 
                    (button - 4.5) * buttonSpacing + arenaY/2,
                    by4/2])
         rotate([0, -90, 0])
