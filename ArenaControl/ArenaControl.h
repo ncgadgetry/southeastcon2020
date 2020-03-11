@@ -39,10 +39,12 @@
  *    2.1 - change score to long, fix piDgit param
  *    2.2 - Paul MacDougal's code suggestions - thanx!
  *    3.0 - add support for LCD controller, switch to uS timing
+ *    3.1 - remove LCD update every second (threw off button timing), and add
+ *          debug output to aid in resolving fast button pressor issues
  */
 
 #define HELLO   "SoutheastCon 2020 Hardware Arena Control"
-#define VERSION "Version 3.0, released March 1, 2020"
+#define VERSION "Version 3.1, released March 10, 2020"
 
 #define MATCH_RUNTIME   (180L*1000L)  // 3 minutes (in milliseconds)
 
@@ -84,4 +86,38 @@ int numSequenced = 0;               // total number of digits scored correctly
 int extraNotSequenced = 0;          // total number of other digit presses
 
 int piDigitPosn = 0;                // current position in the Pi sequence
+
+/**
+ * Debug output to aid in resolving issues with your button presser.
+ *   whenever an error is found, ERROR_STATE is set to True, and
+ *   DEUG_LED_ON is set to True whenever any LED is on (indicating
+ *   it is okay to press a button). This is very useful if you
+ *   are utilizing a 10 button solenoid button presser and can setup
+ *   a multi-channel logic analyzer for each solenoid, and the two
+ *   debug lines below.
+ */
+#define ERROR_STATE   24
+#define DEBUG_LED_ON  25
+
+/**
+ * Defines and globals for the optional LCD controller. This controller
+ *    is the same design as used in my SoutheastCon 2017 competition.
+ *    If the I2C device is found, the hasController global is set to 
+ *    True and the LCD can be used for start, stop and final scoring.
+ *    In addition, if the LCD is not present, the competition can be
+ *    started by pressing any of the 10x buttons, and the final score
+ *    will be sent to the monitor output
+ */
+#include <Wire.h>
+#include "Sainsmart_I2CLCD.h"
+
+#define LCD_ADDRESS   0x27     // I2C address of the LCD device
+#define NUM_COLUMNS   20       // The LCD is a ...
+#define NUM_ROWS      4        //      ... 4x20 character device
+#define BUTTON_START  A0       // Start button is on A0
+#define BUTTON_STOP   A3       // Stop button is on A3
+
+Sainsmart_I2CLCD lcd(LCD_ADDRESS, NUM_COLUMNS, NUM_ROWS);
+
+boolean hasController = false; // Set True only if the LCD is present
 

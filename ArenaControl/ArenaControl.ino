@@ -11,19 +11,6 @@
 #include "ArenaControl.h"
 #include "pi10000.h"
 
-// Libraries for the optional LCD controller
-#include <Wire.h>
-#include "Sainsmart_I2CLCD.h"
-
-// Defines and globals for the optional LCD controller
-#define LCD_ADDRESS   0x27
-#define NUM_COLUMNS   20
-#define NUM_ROWS      4
-#define BUTTON_START  A0
-#define BUTTON_STOP   A3
-Sainsmart_I2CLCD lcd(LCD_ADDRESS, NUM_COLUMNS, NUM_ROWS);
-boolean hasController = false;
-
 
 /**
  * buttonPressed - returns true if switch is depressed, else false 
@@ -179,7 +166,7 @@ bool controllerInstalled() {
    } else {
       lcd.init();
       lcd.backlight();
-      lcd.home ();
+      lcd.home();
 
       lcd.print("SoutheastCon 2020");
 
@@ -217,7 +204,7 @@ bool matchStart() {
        if (buttonPressed(button)) {
           delay(50);
           while (buttonPressed(button));
-          delay(50);
+          delay(300);
           started = true;
        }
     }
@@ -252,25 +239,25 @@ bool matchStop() {
   */
 void updateController(uint32_t runTime) {
 
-      lcd.setCursor(0, 1);
+      lcd.clear();
+      lcd.setCursor(0, 0);
       lcd.print("TIME:  ");
       lcd.print(runTime / 1000);
-      lcd.print("     ");
       
-      lcd.setCursor(13, 1);
+      lcd.setCursor(13, 0);
       lcd.print("S:");
       lcd.print(numSequenced);
-      lcd.print("    ");
 
-      lcd.setCursor(0, 2);
+      lcd.setCursor(0, 1);
       lcd.print("SCORE: ");
       lcd.print(currentScore());
-      lcd.print("     ");
 
-      lcd.setCursor(13, 2);
+      lcd.setCursor(13, 1);
       lcd.print("X:");
       lcd.print(extraNotSequenced);
-      lcd.print("    ");
+
+      lcd.setCursor(0,3);
+      lcd.print("RESET for next game");
 }
  
  /**
@@ -318,7 +305,7 @@ void startCompetition() {
 /**
  * endCompetition - turn on all LEDs, show score, halt
  */
-void endCompetition() {
+void endCompetition(uint32_t runTime) {
       
    // Turn on all the LEDs to indicate the competition is over
    setAllLEDs(true);
@@ -340,8 +327,7 @@ void endCompetition() {
    Serial.println(currentScore());
 
    if (hasController) {
-      lcd.setCursor(0,3);
-      lcd.print("RESET for next game");
+      updateController(runTime);
    }
 
    
@@ -358,6 +344,13 @@ void setup() {
 
    int i;
    
+   // Enable the debug outputs and set them low
+   digitalWrite(ERROR_STATE, LOW);
+   pinMode(ERROR_STATE, OUTPUT);
+   digitalWrite(DEBUG_LED_ON, LOW);
+   pinMode(DEBUG_LED_ON, OUTPUT);
+
+   // Start serial and print out our version
    Serial.begin(115200);
    Serial.println(HELLO);
    Serial.println(VERSION);
@@ -398,14 +391,9 @@ void loop() {
    boolean newPress;
    int numPressed;
 
-   // Update optional controller every second
-   if (hasController && ((runTime % 1000) == 0)) {
-      updateController(runTime);
-   }
-
    // If the match is over, stop and report the score now and halt here
    if ((runTime >= MATCH_RUNTIME) || (matchStop())) {
-      endCompetition();  // Will not return from this
+      endCompetition(runTime);  // Will not return from this
    }
 
    // If we are 'flashing' all LEDs, see if the flash on interval is over
@@ -419,6 +407,7 @@ void loop() {
    // If all buttons are released, then light up the next button in the sequence
    if (numPressed == 0) {
       if (inSequence) {
+         digitalWrite(DEBUG_LED_ON, HIGH);
          setLED(piDigit(piDigitPosn), true);
       }
    }
@@ -428,6 +417,7 @@ void loop() {
 
       // If more than one button is pressed, we are no longer sequencing correctly
       if (numPressed > 1) {
+         digitalWrite(ERROR_STATE, HIGH);
          inSequence = false;
          numSequenced = piDigitPosn;
          flashAllLEDs();
@@ -441,6 +431,7 @@ void loop() {
 
         // If the wrong button was pressed, we are no longer sequencing
         if (buttonState[digit].buttonState == false) {
+           digitalWrite(ERROR_STATE, HIGH);
            inSequence = false;
            extraNotSequenced++;
            flashAllLEDs();
@@ -448,6 +439,7 @@ void loop() {
         // Else new press, correct so turn off digit, increment count of correct
         //   digits and light up the next digit
         } else {
+           digitalWrite(DEBUG_LED_ON, LOW);
            setLED(digit, false);
            piDigitPosn++;
            numSequenced = piDigitPosn;
